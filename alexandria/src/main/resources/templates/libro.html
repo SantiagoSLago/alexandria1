@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    
+  <meta charset="UTF-8">
+   
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+
+  <link  rel="stylesheet" th:href="@{/librostyle.css}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Spectral+SC:wght@200&display=swap" rel="stylesheet">
+  
+  <title>Libro</title>
+</head>
+
+<body>
+
+
+
+  <header>
+     <nav class="navbar navbar-expand-lg bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand fuentes" href="#">ALEXANDRIA</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" th:href="@{/}">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" th:href="@{/libro/libroinit}">Books</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" th:href="@{/autor/autoresInicio}">Autors</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" th:href="@{/editorial/listaeditorial}">Editoriales</a>
+          </li>
+            <li class="nav-item">
+            <a class="nav-link" th:href="@{/cafe/cafeinit}">Coffe</a>
+          </li><li class="nav-item">
+            <a class="nav-link" th:href="@{/pedido/pedidoinit}">Orders</a>
+          </li>
+            <li class="nav-item">
+            <a class="nav-link" th:href="@{/mesa/mesainit}">Table</a>
+          </li>
+            <li class="nav-item">
+            <a class="nav-link" th:href="@{/cliente/clienteinit}">Client</a>
+          </li>
+        <form class="d-flex" role="search">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+      </div>
+    </div>
+  </nav>
+  </header>
+
+
+  <main>
+  
+    <div class="libroForm">
+        <h3 class="fuentes">Cargar Libro</h3>
+        <form th:action="@{/libro/libroreg}" method="POST">
+            
+            <div class="mb-3">
+              <label for="">Titulo</label>
+              <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Titulo" name="titulo">
+              
+            </div>
+            <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label">ISBN</label>
+              <input type="number" class="form-control" id="exampleInputPassword1" placeholder="ISBN" name="isbn">
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Cantidad de Ejemplares</label>
+                <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Ejemplares" name="ejemplares">
+              </div>
+              <div>
+                <label for="">Seleccionar Autor</label>
+                <select class="form-select" aria-label="Default select example" name="idAutor">
+                <option selected></option>
+                <option th:each="autor : ${autores}"
+                        th:value="${autor.id}"
+                        th:text="${autor.nombre}"/>
+                </select>
+              </div>
+            
+              <div>
+                <label for="">Seleccionar Editorial</label>
+                <select class="form-select" aria-label="Default select example" name="idEditorial">
+                <option selected></option>
+               
+                <option th:each="editorial : ${editoriales}"
+                        th:value="${editorial.id}"
+                        th:text="${editorial.nombre}"/>
+              </select>
+              </div>
+           
+            
+            <div class="d-grid gap-2 col-6 mx-auto">  
+                <button class="btn btn-primary fuentes" type="submit">Guardar</button>
+              </div>
+            
+            
+            
+          </form>
+        
+        
+        <!-- Container de las cards-->
+
+        
+        
+        
+        
+    </div>
+    
+<div class="cartas">
+                <div th:if="${msgExito != null}" class="ccard border-success mb-3" style="max-width: 18rem;">
+  <div class="card-header">Header</div>
+  <div class="card-body">
+    <h5 class="card-title">Success card title</h5>
+    <p class="" th:text="${msgExito}"></p>
+  </div>
+    </div>
+        
+        <div th:if="${msgError != null}" class="card border-danger mb-3" style="max-width: 18rem;">
+  <div class="card-header">Error</div>
+  <div class="card-body">
+    <p class="" th:text="${msgError}"></p>
+    
+  </div>
+</div>
+            </div>
+      
+
+
+         
+
+  </main>
+  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

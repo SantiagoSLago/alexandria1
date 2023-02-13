@@ -1,0 +1,104 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 10-oct-2022, 12:20:20
+    Author     : Lumberjack
+*/
+
+
+a{
+    text-decoration: none;
+   color: black;
+}
+
+.fuentes {
+  font-family: "Spectral SC", serif;
+  font-weight: 600;
+}
+
+nav {
+  display: flex;
+}
+h3{
+    text-align: center;
+}
+
+main {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: rgba(250, 235, 215, 0.867);
+}
+main form {
+  height: 250px;
+  width: 350px;
+  border: 1.9px;
+  margin-top: 50px;
+  border-style: groove;
+  background-color: rgb(225, 207, 178);
+  border-color: rgb(247, 185, 122);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  text-align: center;
+}
+main form button {
+  border-radius: 6px;
+  border-color: antiquewhite;
+}
+
+
+
+/*-------------AutorLista.html-------rgba(250, 235, 215, 0.867)---------*/
+.infoautor {
+    margin-top: 100px;
+    width: 90vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+.infoautor button {
+  width: 200px;
+}
+.infoautor .tabla {
+    display: flex;
+    flex-direction: column;
+    width: 90vw;
+    height: 250px;
+    align-items: center;
+}
+
+
+/*----------------libromodif.html-----------------*/
+
+
+.formularioModificar{
+    height: 450px;
+    
+}
+
+.divFormulario{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+       
+}
+
+
+.oculto{
+    visibility: hidden;
+}/*# sourceMappingURL=listasAE.css.map */
+
+
+
+
+
+

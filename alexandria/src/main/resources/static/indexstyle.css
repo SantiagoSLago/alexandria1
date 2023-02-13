@@ -1,0 +1,21 @@
+main {
+  height: 100vh;
+  background-color: antiquewhite;
+  display: flex;
+  justify-content: center;
+}
+
+.fuentes {
+  font-family: "Spectral SC", serif;
+  
+}
+
+section {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+section h1 {
+  margin-top: 90px;
+  width: 50%;
+}/*# sourceMappingURL=indexstyle.css.map */

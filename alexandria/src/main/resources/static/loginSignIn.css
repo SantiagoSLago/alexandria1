@@ -1,0 +1,183 @@
+@-webkit-keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translate3d(-100%, 0, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translate3d(-100%, 0, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+.fadeInLeft {
+  -webkit-animation-name: fadeInLeft;
+          animation-name: fadeInLeft;
+}
+
+.slideLeft {
+  -webkit-animation-name: slideLeft;
+  animation-name: slideLeft;
+}
+
+@-webkit-keyframes slideLeft {
+  0% {
+    transform-origin: 0 0;
+    transform: translateX(0%);
+  }
+  100% {
+    transform-origin: 0 0;
+    transform: translateX(-100%);
+  }
+}
+@keyframes slideLeft {
+  0% {
+    transform-origin: 0 0;
+    transform: translateX(0%);
+  }
+  100% {
+    transform-origin: 0 0;
+    transform: translateX(-100%);
+  }
+}
+a {
+  text-decoration: none;
+  color: black;
+}
+
+img {
+  width: 350px;
+  height: 250px;
+  margin-bottom: 95px;
+}
+
+.fuentes {
+  font-family: "Spectral SC", serif;
+  font-weight: 600;
+}
+
+nav {
+  display: flex;
+}
+
+h1 {
+  font-size: 31px;
+  width: 399px;
+  margin-top: 50px;
+  color: black;
+}
+
+h3 {
+  text-align: center;
+}
+
+.inputs {
+  border: none;
+  background-color: #006CA8;
+  border-color: #F3DCBE;
+  font-weight: lighter;
+  color: #F3DCBE;
+  border-style: groove;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom-width: 1px;
+  width: 55%;
+  margin-left: 25px;
+}
+
+.inputs::-moz-placeholder {
+  color: #F3DCBE;
+}
+
+.inputs:-ms-input-placeholder {
+  color: #F3DCBE;
+}
+
+.inputs::placeholder {
+  color: #F3DCBE;
+}
+
+.form-btn {
+  width: 167px;
+  height: 60px;
+  border-radius: 8px;
+  border-color: #F3DCBE;
+  background-color: #006CA8;
+  color: #F3DCBE;
+  border-style: groove;
+  font-weight: lighter;
+}
+
+.fadeInLeft {
+  -webkit-animation-name: fadeInLeft;
+          animation-name: fadeInLeft;
+}
+
+main {
+  /*background-image:url();*//*No me toma la imagen de fondo, sospecho que se debe a algun tema del formato.. no es urgente.*/
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(250, 235, 215, 0.867);
+}
+main #panel-inicio {
+  width: 1100px;
+  height: 600px;
+  display: flex;
+}
+main #panel-inicio #titulo-imagen {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  text-align: center;
+  background-color: #F3DCBE;
+  opacity: 0.9;
+}
+main #panel-inicio #formulario {
+  width: 50%;
+  height: 100%;
+  background-color: #006CA8;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  opacity: 0.9;
+}
+main #panel-inicio #formulario form {
+  height: 70%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-self: flex-start;
+}
+main #panel-inicio #formulario form #botones {
+  width: 400px;
+  display: flex;
+  justify-content: space-around;
+}
+main #panel-inicio #formulario form #botones a {
+  color: #F3DCBE;
+}
+main #panel-inicio #formulario h2 {
+  color: #F3DCBE;
+  font-weight: lighter;
+  margin-top: 20px;
+}
+
+#boton-SignIn {
+  display: flex;
+  justify-content: center;
+}/*# sourceMappingURL=loginSignIn.css.map */

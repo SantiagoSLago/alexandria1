@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Link de las animations -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+
+    <link rel="stylesheet" th:href="@{/loginSignIn.css}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Spectral+SC:wght@200&display=swap" rel="stylesheet">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+
+    <main>
+        <section id="panel-inicio">
+            <div id="titulo-imagen" class="animate__animated animate__fadeInLeft">
+                <h1 class="fuentes">Welcome to Alexandria</h1>
+                <img src="../static/imagenTemplo.png" alt="">
+            </div>
+            <div id="formulario" class="animate__animated animate__fadeInRight">
+                <h2 class="fuentes">Log In</h2>
+                <form th:action="@{/logincheck}" method="POST">
+
+                    <input type="text" name="email" id="" placeholder="User Email" class="inputs fuentes">
+
+                    <input type="password" name="password" id="" placeholder="Password" class="inputs fuentes">
+                    <div id="botones">
+                        
+                        <!-- El login esta hecho para ir al inicio, al combinarlo con el back hacer el chequeo en la BD de las credenciales de usuario -->
+                        <button type="submit" class="form-btn fuentes">Log In</a></button>
+                    </div>
+                </form>
+                <button class="form-btn fuentes"><a th:href="@{/usuario/registrarUsuario}">Sign In</a></button>
+            </div>
+        </section>
+
+
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+        crossorigin="anonymous"></script>
+
+    <script src="scripts/editoList.js"></script>
+</body>
+
+</html>
