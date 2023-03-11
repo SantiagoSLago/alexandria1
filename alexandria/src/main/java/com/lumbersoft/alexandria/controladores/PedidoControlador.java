@@ -12,8 +12,11 @@ import com.lumbersoft.alexandria.servicios.LibroService;
 import com.lumbersoft.alexandria.servicios.MesaService;
 import com.lumbersoft.alexandria.servicios.PedidoService;
 import com.lumbersoft.alexandria.servicios.UbicacionMesaService;
+import com.lumbersoft.alexandria.servicios.UsuarioService;
 import java.util.List;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
+@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
 @RequestMapping("/pedido")
 public class PedidoControlador {
 
@@ -40,6 +44,9 @@ public class PedidoControlador {
 
     @Autowired
     private LibroService ls;
+    
+    @Autowired
+    private UsuarioService us;
 
     @Autowired
     private UbicacionMesaService ums;
@@ -60,10 +67,35 @@ public class PedidoControlador {
         return "pedido.html";
 
     }
+    
+    
+    
+    @GetMapping("/pedidosUsuario")
+    public String pedidosDelUsuario(ModelMap modelo){
+        
+        
+        
+        List<Mesa> mesas = ms.listarMesas();
+        List<Cafe> cafes = cs.listarCafes();
+        List<Libro> libros = ls.listarLibros();
+        List<Pedido> pedidos = ps.listarPedidos();
+
+        modelo.addAttribute("mesas", mesas);
+        modelo.addAttribute("cafes", cafes);
+        modelo.addAttribute("libros", libros);
+        modelo.put("pedidos", pedidos);
+
+        return "pedidoUser.html";
+        
+        
+        
+    }
+    
+    
 
     @PostMapping("/crearPedido")
     public String crearPedido(@RequestParam(required = false) Integer idCafe, @RequestParam(required = false) Integer idMesa,
-            @RequestParam(required = false) String nombreCliente, @RequestParam(required = false) String apellidoCliente, @RequestParam(required = false) Long isbn, ModelMap modelo) {
+            @RequestParam(required = false) String nombreCliente, @RequestParam(required = false) String apellidoCliente, @RequestParam(required = false) Long isbn, ModelMap modelo, HttpSession session) {
 
         try {
             ps.generarPedido(idCafe, isbn, idMesa, nombreCliente, apellidoCliente);
@@ -88,8 +120,13 @@ public class PedidoControlador {
             modelo.put("pedidos", pedidos);
             modelo.put("msgError", e.getMessage());
         }
+        
+        if(us.getRolUsuario(session)){
+            return "pedido.html";
+        }
+        
 
-        return "pedido.html";
+        return "pedidoUser.html";
 
     }
 
@@ -159,5 +196,7 @@ public class PedidoControlador {
 
         return "pedido.html";
     }
+    
+            
 
 }

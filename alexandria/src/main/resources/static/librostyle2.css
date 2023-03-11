@@ -43,7 +43,14 @@ main .libroForm form {
   border-color: rgb(247, 185, 122);
   border-radius: 10px;
   height: 500px;
+}
+
+.oculto{
+  visibility: hidden;
 }/*# sourceMappingURL=libroForm.css.map */
+
+
+
 
 
 

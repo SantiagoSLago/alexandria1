@@ -48,6 +48,7 @@ public class UsuarioService implements UserDetailsService{
             
         } catch (AlfaException e) {
             System.out.println(e.getMessage());//Control de la excepcion por consola (borrar luego)
+            throw new RuntimeException();
             
         }
         
@@ -81,7 +82,16 @@ public class UsuarioService implements UserDetailsService{
         
     }
     
-    
+    public boolean getRolUsuario(HttpSession session){
+        Usuario logueado = (Usuario) session.getAttribute("usuariosession");
+        if(logueado.getRol().toString().equals("ADMIN")){
+            return true;
+        }else{
+            return false;
+        }
+        
+        
+    }
     
     
     

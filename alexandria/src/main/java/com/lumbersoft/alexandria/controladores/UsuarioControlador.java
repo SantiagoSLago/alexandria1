@@ -16,12 +16,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller
+@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
 @RequestMapping("/usuario")
 public class UsuarioControlador {
     
     
     @Autowired
     private UsuarioService us;
+    
+    
+    @GetMapping("/registrarUsuarioPage")
+    public String registrarUsuario(){
+        return "signIn.html";
+    }
     
     //PostMapping solo para registrar Usuario
     @PostMapping("/registrarUsuario")
@@ -36,7 +43,11 @@ public class UsuarioControlador {
             return "login.html";
             
         } catch (Exception e) {
-            //Manejar la Excepcion por aca y sacarla del service, despues.
+            
+           
+            modelo.put("nombre",nombre);
+            modelo.put("email",email);
+            //Agregar cartel de mensaje de error en el sign in
             return "signIn.html";
         }
         
@@ -49,16 +60,7 @@ public class UsuarioControlador {
     
     
     
-//    @GetMapping("/login")
-//    public String login(@RequestParam(required = false)String error,ModelMap modelo) {
-//        
-//        if(error != null){
-//           modelo.put("error", "Contraseña o usurio invalidos");
-//        }
-//        
-//        
-//        return "login.html";
-//    }
+
     
     
     

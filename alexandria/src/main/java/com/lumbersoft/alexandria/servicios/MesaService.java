@@ -93,6 +93,34 @@ public class MesaService {
                 throw new AssertionError();
         }
     }
+    
+    
+    @Transactional
+    public void eliminar_mesa(Integer numero) throws AlfaException{
+        mrpo.delete(buscarPorNumero(numero));
+        
+        
+        
+    }
+    
+    
+    public List<Integer> listar_numeros_de_mesa(){
+        
+        List<Mesa> mesas = listarMesas();
+        List<Integer> numeros_mesas = new ArrayList<>();
+        
+        for (Mesa mesa : mesas) {
+            numeros_mesas.add(mesa.getNumero());
+            
+        }
+        
+        for (Integer num : numeros_mesas) {
+            System.out.println("Numero: " + num);
+        }
+        
+        return numeros_mesas;
+        
+    }
           
 
 }

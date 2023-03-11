@@ -1,5 +1,6 @@
 package com.lumbersoft.alexandria.servicios;
 
+import com.lumbersoft.alexandria.Enums.EstadoMesas;
 import com.lumbersoft.alexandria.Enums.EstadoPedidos;
 import com.lumbersoft.alexandria.entidades.Cafe;
 import com.lumbersoft.alexandria.entidades.Cliente;
@@ -78,8 +79,20 @@ public class PedidoService {
     }
 
     @Transactional
-    public void eliminarPedido(Integer id) {
+    public void eliminarPedido(Integer id) throws AlfaException {
+       Pedido pedido;
+        Optional<Pedido> opcion = pro.findById(id);
+        if(opcion.isPresent()){
+            pedido =opcion.get();
+            if(pedido.getMesa().getEstado_mesa().equals(EstadoMesas.OCUPADA)){
+                 ms.ocupar_desocupar_mesa(buscarPorId(id).getMesa().getNumero());
+            }
+            
+        }
+               
         pro.delete(pro.findById(id).get());
+        
+        
     }
 
     @Transactional

@@ -37,7 +37,7 @@ public class SeguridadWeb extends WebSecurityConfigurerAdapter{
         http
                 .authorizeRequests()
                 .antMatchers("/admin/*").hasRole("ADMIN")//Aca se setea la autorizacion del rol admin para poder acceder a todos los metodos del controlador de administrador( /admin/*)
-                    .antMatchers("/css/*","/js/*","/img/*","/")
+                    .antMatchers("/css/*","/js/*","/img/*","/")//Fijarse de agregar el doble **
                     .permitAll()
                 .and().formLogin()
                     .loginPage("/login")

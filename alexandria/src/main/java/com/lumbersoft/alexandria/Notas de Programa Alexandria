@@ -1,5 +1,11 @@
 
 Datos del primer usuario de Prueba:
+Tipo de Usuario: USER
 nombre: usuario1
 email: usuario1@gmail.com 
 password: usuario11234
+Datos del segundo usuario de Prueba:
+Tipo de Usuario: ADMIN
+nombre: usuario2
+email: usuario2@gmail.com 
+password: usuario21234
