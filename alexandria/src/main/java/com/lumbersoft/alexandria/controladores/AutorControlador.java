@@ -44,15 +44,16 @@ public class AutorControlador {
 
             modelo.addAttribute("autores", autores);
         } catch (AlfaException ex) {
-            Logger.getLogger(AutorControlador.class.getName()).log(Level.SEVERE, null, ex);
-            modelo.put("msgError", ex.getMessage());
+            //Logger.getLogger(AutorControlador.class.getName()).log(Level.SEVERE, null, ex);
+            modelo.put("msjError", ex.getMessage());
             List<Autor> autores = as.listarAutores();
 
             modelo.addAttribute("autores", autores);
+
             return "listadoAutores.html"; 
         }
 
-        return "listadoAutores.html";//modificado, antes iba a autorform
+        return "listadoAutores.html";
     }
 
     @GetMapping("/registrar")

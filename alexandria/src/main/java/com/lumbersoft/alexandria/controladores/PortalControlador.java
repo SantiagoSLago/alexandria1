@@ -6,11 +6,18 @@ import com.lumbersoft.alexandria.entidades.Mesa;
 import com.lumbersoft.alexandria.entidades.Pedido;
 import com.lumbersoft.alexandria.entidades.Usuario;
 import com.lumbersoft.alexandria.excepciones.AlfaException;
+
+import java.io.IOException;
 import java.util.List;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +29,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/")
 public class PortalControlador {
 
+
     @GetMapping("/")
     public String index() {
         return "signIn.html";
@@ -30,8 +38,9 @@ public class PortalControlador {
     @GetMapping("/login")
     public String login(@RequestParam(required = false) String error, ModelMap modelo) {
 
+        System.out.println(error);
         if (error != null) {
-            modelo.put("error", "Contraseña o usuario invalidos");
+            modelo.put("msjError", "Usuario o contraseña invalidos");
         }
 
         return "login.html";
@@ -51,9 +60,21 @@ public class PortalControlador {
             return "home.html";
         }
 
-        
 
         return "redirect:/pedido/pedidosUsuario";
     }
 
+
+
+
+
+
 }
+
+
+
+
+
+
+
+

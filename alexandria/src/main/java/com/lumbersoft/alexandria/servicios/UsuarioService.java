@@ -31,12 +31,12 @@ public class UsuarioService implements UserDetailsService{
     
     
     @Transactional
-    public void crearUsuario(String nombre, String email, String password1, String password2){
+    public void crearUsuario(String nombre, String email, String password1, String password2) throws AlfaException {
         
         mostrarData(nombre, email, password1, password2);
         
         
-        try {
+
             validacionDatos(nombre, email, password1, password2);
             Usuario usuario = new Usuario();
             usuario.setNombre(nombre);
@@ -46,15 +46,13 @@ public class UsuarioService implements UserDetailsService{
             
             urpo.save(usuario);
             
-        } catch (AlfaException e) {
-            System.out.println(e.getMessage());//Control de la excepcion por consola (borrar luego)
-            throw new RuntimeException();
-            
-        }
+
         
         
     }
-    
+
+
+
     
     
     public void validacionDatos(String nombre, String email, String password1, String password2)throws AlfaException{

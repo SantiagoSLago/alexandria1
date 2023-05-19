@@ -7,9 +7,11 @@ import com.lumbersoft.alexandria.excepciones.AlfaException;
 import com.lumbersoft.alexandria.servicios.AutorService;
 import com.lumbersoft.alexandria.servicios.EditorialService;
 import com.lumbersoft.alexandria.servicios.LibroService;
+
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -48,8 +50,10 @@ public class LibroControlador {
     }
 
     @PostMapping("/libroreg")
-    public String libroReg(@RequestParam(required = false) Long isbn, @RequestParam(required = false) String titulo, @RequestParam(required = false) Integer ejemplares,
-            @RequestParam(required = false) Integer idAutor, @RequestParam(required = false) Integer idEditorial, ModelMap modelo) {
+    public String libroReg(@RequestParam(required = false) Long isbn,
+                           @RequestParam(required = false) String titulo, @RequestParam(required = false) Integer ejemplares,
+                           @RequestParam(required = false) Integer idAutor, @RequestParam(required = false) Integer idEditorial,
+                           ModelMap modelo) {
         try {
             ls.crearLibro(isbn, titulo, ejemplares, idAutor, idEditorial);
 
@@ -94,16 +98,16 @@ public class LibroControlador {
     public String modificarLibro(@PathVariable Long isbn, String titulo, Integer ejemplares, Integer idAutor, Integer idEditorial, ModelMap modelo) throws AlfaException {
 
         try {
-            
-            
+
+
             ls.modificarLibro(isbn, titulo, idAutor, idEditorial, ejemplares);
             List<Libro> libros = ls.listarLibros();
 
-        modelo.put("libros", libros);
+            modelo.put("libros", libros);
             return "librolist.html";
-            
+
         } catch (Exception e) {
-            
+
             e.printStackTrace();
             System.out.println("Error en la modificacion del libro");
             return "errorpage.html";
@@ -112,17 +116,16 @@ public class LibroControlador {
     }
 
     @GetMapping("/eliminarLibro/{isbn}")
-    public String eliminarLibro(@PathVariable Long isbn, ModelMap modelo) throws AlfaException{
-        
-       
+    public String eliminarLibro(@PathVariable Long isbn, ModelMap modelo) throws AlfaException {
+
+
         ls.eliminarLibro(isbn);
         List<Libro> libros = ls.listarLibros();
 
         modelo.put("libros", libros);
-        
+
         return "librolist.html";
     }
-    
-    
-   
+
+
 }

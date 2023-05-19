@@ -26,15 +26,15 @@
         <section id="panel-inicio">
             <div id="titulo-imagen" class="animate__animated animate__fadeInLeft">
                 <h1 class="fuentes">Welcome to Alexandria</h1>
-                <img src="../static/imagenTemplo.png" alt="">
+                <img src="assets/GansosAnonimos.png">
             </div>
             <div id="formulario" class="animate__animated animate__fadeInRight">
                 <h2 class="fuentes">Log In</h2>
                 <form th:action="@{/logincheck}" method="POST">
 
-                    <input type="text" name="email" id="" placeholder="User Email" class="inputs fuentes">
+                    <input type="text" name="email" id="email" placeholder="User Email" class="inputs fuentes">
 
-                    <input type="password" name="password" id="" placeholder="Password" class="inputs fuentes">
+                    <input type="password" name="password" id="password" placeholder="Password" class="inputs fuentes">
                     <div id="botones">
                         
                         
@@ -43,6 +43,8 @@
                 </form>
                 <button class="form-btn fuentes"><a th:href="@{/usuario/registrarUsuarioPage}">Sign In</a></button>
             </div>
+
+            <div th:replace="VisualComponents/vc1 :: cartasMensaje"></div>
         </section>
 
 

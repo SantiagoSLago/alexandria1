@@ -13,8 +13,10 @@ import com.lumbersoft.alexandria.servicios.MesaService;
 import com.lumbersoft.alexandria.servicios.PedidoService;
 import com.lumbersoft.alexandria.servicios.UbicacionMesaService;
 import com.lumbersoft.alexandria.servicios.UsuarioService;
+
 import java.util.List;
 import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -44,7 +46,7 @@ public class PedidoControlador {
 
     @Autowired
     private LibroService ls;
-    
+
     @Autowired
     private UsuarioService us;
 
@@ -67,14 +69,12 @@ public class PedidoControlador {
         return "pedido.html";
 
     }
-    
-    
-    
+
+
     @GetMapping("/pedidosUsuario")
-    public String pedidosDelUsuario(ModelMap modelo){
-        
-        
-        
+    public String pedidosDelUsuario(ModelMap modelo) {
+
+
         List<Mesa> mesas = ms.listarMesas();
         List<Cafe> cafes = cs.listarCafes();
         List<Libro> libros = ls.listarLibros();
@@ -86,16 +86,14 @@ public class PedidoControlador {
         modelo.put("pedidos", pedidos);
 
         return "pedidoUser.html";
-        
-        
-        
+
+
     }
-    
-    
+
 
     @PostMapping("/crearPedido")
     public String crearPedido(@RequestParam(required = false) Integer idCafe, @RequestParam(required = false) Integer idMesa,
-            @RequestParam(required = false) String nombreCliente, @RequestParam(required = false) String apellidoCliente, @RequestParam(required = false) Long isbn, ModelMap modelo, HttpSession session) {
+                              @RequestParam(required = false) String nombreCliente, @RequestParam(required = false) String apellidoCliente, @RequestParam(required = false) Long isbn, ModelMap modelo, HttpSession session) {
 
         try {
             ps.generarPedido(idCafe, isbn, idMesa, nombreCliente, apellidoCliente);
@@ -120,17 +118,18 @@ public class PedidoControlador {
             modelo.put("pedidos", pedidos);
             modelo.put("msgError", e.getMessage());
         }
-        
-        if(us.getRolUsuario(session)){
+
+        if (us.getRolUsuario(session)) {
             return "pedido.html";
         }
-        
+
 
         return "pedidoUser.html";
 
     }
 
-    @GetMapping("/eliminarPedido/{id}")//Por alguna razon este controlado si bien modifica en la BD, la anotacion PostMapping larga un error 405
+    @GetMapping("/eliminarPedido/{id}")
+//Por alguna razon este controlado si bien modifica en la BD, la anotacion PostMapping larga un error 405
     public String eliminarPedido(@PathVariable Integer id, ModelMap modelo) throws AlfaException {
 
         ps.eliminarPedido(id);
@@ -158,11 +157,13 @@ public class PedidoControlador {
     }
 
     @PostMapping("/modificarPedido/{id}")
-    public String modificarPedido(@PathVariable Integer id, @RequestParam Integer idCafe, @RequestParam Integer idMesa,
-            @RequestParam String nombreCliente, @RequestParam String apellidoCliente, @RequestParam Long isbn, ModelMap modelo) throws AlfaException {
+    public String modificarPedido(@PathVariable Integer id, @RequestParam(required = false) Integer idCafe,
+                                  @RequestParam(required = false) Integer idMesa,
+                                  @RequestParam(required = false) String nombreCliente, @RequestParam(required = false) String apellidoCliente,
+                                  @RequestParam(required = false) Long isbn, ModelMap modelo) throws AlfaException {
 
         ps.modificarPedido(id, nombreCliente, apellidoCliente, isbn, idCafe, idMesa);
-
+/*
         List<Pedido> pedidos = ps.listarPedidos();
         List<Mesa> mesas = ms.listarMesas();
         List<Cafe> cafes = cs.listarCafes();
@@ -173,7 +174,10 @@ public class PedidoControlador {
         modelo.addAttribute("libros", libros);
         modelo.put("pedidos", pedidos);
 
-        return "pedido.html";
+ */
+
+        return "redirect:/pedido/pedidoinit";
+
 
     }
 
@@ -196,7 +200,6 @@ public class PedidoControlador {
 
         return "pedido.html";
     }
-    
-            
+
 
 }

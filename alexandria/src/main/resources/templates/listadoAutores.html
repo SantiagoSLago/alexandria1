@@ -19,49 +19,7 @@
 <body>
 
 
-    <header>
-     <nav class="navbar navbar-expand-lg bg-light">
-    <div class="container-fluid">
-      <a class="navbar-brand fuentes" href="#">ALEXANDRIA</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" th:href="@{/home/homePage}">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" th:href="@{/libro/libroinit}">Books</a>
-          </li>
-          <li class="nav-item">
-              <a class="nav-link" th:href="@{/autor/autoresInicio}">Autors</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" th:href="@{/editorial/listaeditorial}">Editoriales</a>
-          </li>
-            <li class="nav-item">
-            <a class="nav-link" th:href="@{/cafe/cafeinit}">Coffe</a>
-          </li><li class="nav-item">
-            <a class="nav-link" th:href="@{/pedido/pedidoinit}">Orders</a>
-          </li>
-            <li class="nav-item">
-            <a class="nav-link" th:href="@{/mesa/mesainit}">Table</a>
-          </li>
-            <li class="nav-item">
-            <a class="nav-link" th:href="@{/cliente/clienteinit}">Client</a>
-          </li>
-            <li class="nav-item">
-            <a class="nav-link" href="/logout">Logout</a>
-          </li>
-        <form class="d-flex" role="search">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
-      </div>
-    </div>
-  </nav>
-  </header>
+<header th:replace="VisualComponents/vc1 :: barraNavegacion"></header>
 
 
     <main>
@@ -95,6 +53,7 @@
                 </table>
                 <button type="button" class="btn btn-outline-dark" id="addAutor" th:value="${valorPrueba}" name="valorPrueba" th:onclick="#{valorPrueba}">Agregar Autor</button>
                     <!--FORMULARIO DE CREACION DE AUTOR-->
+                <div th:replace="VisualComponents/vc1 :: cartasMensaje"></div>
             <div>
             <form th:action="@{/autor/registro}" method="POST" id="busquedaAutor" class="oculto">
             <div>
@@ -109,20 +68,10 @@
             
             
             
-            <!--FORMULARIO DE MODIFICACION DE AUTOR-->
 
-          
-      <!--      
-      <form th:action="@{/autor/modificar/${autor.id}}" method="POST" class="" id="modificar_autor">
-        <div>
-          <p class="fuentes">Nombre del Autor a Modificar</p>
-          <input th:value="${autor.nombre}" type="text" name="nombre">
-              
 
-        </div>
-        <button class="fuentes" type="submit">Confirmar</button>
-      </form>
-            -->
+
+
             
             
             

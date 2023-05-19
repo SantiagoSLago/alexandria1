@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+          integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 
     <link rel="stylesheet" th:href="@{/listasAE.css}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,124 +19,64 @@
 <body>
 
 
-
-    <header>
-     <nav class="navbar navbar-expand-lg bg-light">
-    <div class="container-fluid">
-      <a class="navbar-brand fuentes" href="#">ALEXANDRIA</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" th:href="@{/}">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" th:href="@{/libro/libroinit}">Books</a>
-          </li>
-          <li class="nav-item">
-              <a class="nav-link" th:href="@{/autor/autoresInicio}">Autors</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" th:href="@{/editorial/listaeditorial}">Editoriales</a>
-          </li>
-            <li class="nav-item">
-            <a class="nav-link" th:href="@{/cafe/cafeinit}">Coffe</a>
-          </li><li class="nav-item">
-            <a class="nav-link" th:href="@{/pedido/pedidoinit}">Orders</a>
-          </li>
-            <li class="nav-item">
-            <a class="nav-link" th:href="@{/mesa/mesainit}">Table</a>
-          </li>
-            <li class="nav-item">
-            <a class="nav-link" th:href="@{/cliente/clienteinit}">Client</a>
-          </li>
-            <li class="nav-item">
-            <a class="nav-link" href="/logout">Logout</a>
-          </li>
-        <form class="d-flex" role="search">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
-      </div>
-    </div>
-  </nav>
-  </header>
+<header th:replace="VisualComponents/vc1 :: barraNavegacion"></header>
 
 
-    <main>
+<main>
 
-        <section class="infoautor">
-            <div class="tabla">
+    <section class="infoautor">
+        <div class="tabla">
 
-                <h3 class="fuentes">EDITORIALES</h3>
-                <table class="table fuentes">
-                    <thead>
-                        <tr>
-                           <th scope="col" >id </th>
-                            <th scope="col">Nombre</th>
-                           
-                        </tr>
-                    </thead>
-                    <tbody th:each="editorial : ${editoriales}">
-                        <tr>
-                            <th scope="row" th:text="${editorial.id}"></th>  
-                            <td th:text="${editorial.nombre}"></td>
-                            <td>
-                                <a th:href="@{/editorial/modificaredit/__${editorial.id}__}"><i class="bi bi-pencil-square" th:value="${editorial.id}" ></i></a>
-                                <a th:href="@{/editorial/eliminaredit/__${editorial.id}__}"><i class="bi bi-trash" th:value="${editorial.id}"></i></a>
-                                </td>
-                        </tr>
-                        
-                    </tbody>
-                </table>
-                <button type="button" class="btn btn-outline-dark" name="valor"  id="agregarRegistro-btn">Agregar Editorial</button>
+            <h3 class="fuentes">EDITORIALES</h3>
+            <table class="table fuentes">
+                <thead>
+                <tr>
+                    <th scope="col">id</th>
+                    <th scope="col">Nombre</th>
+
+                </tr>
+                </thead>
+                <tbody th:each="editorial : ${editoriales}">
+                <tr>
+                    <th scope="row" th:text="${editorial.id}"></th>
+                    <td th:text="${editorial.nombre}"></td>
+                    <td>
+                        <a th:href="@{/editorial/modificaredit/__${editorial.id}__}"><i class="bi bi-pencil-square"
+                                                                                        th:value="${editorial.id}"></i></a>
+                        <a th:href="@{/editorial/eliminaredit/__${editorial.id}__}"><i class="bi bi-trash"
+                                                                                       th:value="${editorial.id}"></i></a>
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
+            <button type="button" class="btn btn-outline-dark" name="valor" id="agregarRegistro-btn">Agregar Editorial
+            </button>
             <!-- <a th:href="@{/editorial/registraredit}">Agregar Editorial</a>-->
-                
-                
-                <form th:action="@{/editorial/registroedit}" method="POST" id="agregarRegistro-form" class="oculto">
-                    <div>
-                        <p class="fuentes">Nombre de la Editorial</p>
-                        <input type="text" name="nombre">
-                    </div>
-                    <button class="fuentes" type="submit">Guardar</button>
-                </form>
-                
-                
-                
-            </div>
-            
-        </section>
-
-<div class="cartas">
-                <div th:if="${msgExito != null}" class="ccard border-success mb-3" style="max-width: 18rem;">
-  <div class="card-header">Header</div>
-  <div class="card-body">
-    <h5 class="card-title">Success card title</h5>
-    <p class="" th:text="${msgExito}"></p>
-  </div>
-    </div>
-        
-        <div th:if="${msgError != null}" class="card border-danger mb-3" style="max-width: 18rem;">
-  <div class="card-header">Error</div>
-  <div class="card-body">
-    <p class="" th:text="${msgError}"></p>
-    
-  </div>
-</div>
-            </div>
-        
-        
-        
 
 
-    </main>
+            <form th:action="@{/editorial/registroedit}" method="POST" id="agregarRegistro-form" class="oculto">
+                <div>
+                    <p class="fuentes">Nombre de la Editorial</p>
+                    <input type="text" name="nombre">
+                </div>
+                <button class="fuentes" type="submit">Guardar</button>
+            </form>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+
+        </div>
+
+    </section>
+
+    <div th:replace="VisualComponents/vc1 :: cartasMensaje"></div>
+
+
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
         crossorigin="anonymous"></script>
-    <script type="text/javascript" th:src="@{/editoList.js}"></script>
+<script type="text/javascript" th:src="@{/editoList.js}"></script>
 </body>
 
 </html>
