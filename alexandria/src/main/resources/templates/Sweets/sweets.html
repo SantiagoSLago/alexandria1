@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/product.css}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Meie+Script&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+          integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+
+    <title>Sweets</title>
+</head>
+
+<body>
+<header>
+    <div class="header-icon-container">
+        <a th:href="@{/admin/home}"><i class="fa-solid fa-arrow-left hvr-grow"></i></a>
+        <a th:href="@{/admin/home}"><i class="fa-solid fa-house hvr-grow"></i></a>
+    </div>
+    <div class="header-logo-title-container">
+        <img th:src="@{/img/logo.png}" alt="">
+        <h1>Sweets</h1>
+    </div>
+
+</header>
+<main>
+
+    <section class="table-container">
+        <table class="centered-table">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Size</th>
+                <th>Price</th>
+                <th>Stock</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="sweet : ${sweets}">
+                <td th:text="${sweet.id}"></td>
+                <td th:text="${sweet.nombre}"></td>
+                <td th:text="${sweet.peso} + ' gr'"></td>
+                <td th:text="'$ ' + ${sweet.precio}"></td>
+                <td>
+                    <span th:if="${sweet.state}" th:text="available"></span>
+                    <span th:unless="${sweet.state}" th:text="unavailable"></span>
+                </td>
+                <td><i class="fa-regular fa-pen-to-square hvr-grow" th:value="${sweet.id}"></i>
+                    <i class="fa-sharp fa-solid fa-trash hvr-grow" th:value="${sweet.id}"></i>
+                    <i class="fa-solid fa-circle-check hvr-grow" th:value="${sweet.id}"></i>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <button class="add-item-button hvr-grow">Add Sweet</button>
+    </section>
+
+    <section class="form-container add">
+        <form enctype="multipart/form-data" class="form-sweet-upload" action="/upload" method="POST">
+            <h5>Add</h5>
+            <label for="name">Name</label>
+            <input type="text" name="name" id="name">
+            <label for="size">Size</label>
+            <input type="number" name="size" id="size">
+            <label for="price">Price</label>
+            <input type="number" name="price" id="price" placeholder="Value in gr">
+            <label for="file" class="file-input">Image</label>
+            <input type="file" name="file" id="file" class="file-input">
+            <button type="submit" class="hvr-fade btn-add">Save</button>
+        </form>
+    </section>
+
+    <section class="form-container update">
+        <form class="form-coffee-update">
+            <h5>Update</h5>
+            <label for="u_name">Name</label>
+            <input type="text" name="name" id="u_name" class="update-input-name">
+            <label for="u_size">Size</label>
+            <input type="number" name="u_size" id="u_size" placeholder="Value in ml" class="update-input-size">
+            <label for="u_price">Price</label>
+            <input type="number" name="u_price" id="u_price" class="update-input-price">
+            <input type="hidden" name="" id="" value="" class="update_input_productId">
+            <button type="submit" class="hvr-fade btn-update">Save</button>
+        </form>
+
+    </section>
+
+    <script th:src="@{/js/sweets.js}"></script>
+</main>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Meie+Script&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/nOrderSucces.css}">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+<header class="logo">
+    <img th:src="@{/img/logo.png}" alt="">
+    <h1>Successful Order</h1>
+</header>
+<main class="purchase-display">
+    <div class="purchase-display-items">
+        <div class="purchase-display-title">
+            <h2>Coffee</h2>
+            <hr>
+        </div>
+        <div class="purchase-display-data" >
+            <div class="purchase-display-data-card" th:each="coffee : ${coffees}">
+                <p class="purchase-display-data-items" th:text="${coffee.nombre}"></p>
+                <div class="vertical-line"></div>
+                <p class="purchase-display-data-items" th:text="${coffee.medida} + ' ml'"></p>
+                <div class="vertical-line"></div>
+                <p class="purchase-display-data-items" th:text="'$ ' + ${coffee.precio}"></p>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="purchase-display-items">
+        <div class="purchase-display-title">
+            <h2>Sweets</h2>
+            <hr>
+        </div>
+
+        <div class="purchase-display-data">
+            <div class="purchase-display-data-card" th:each="sweet : ${sweets}">
+                <p class="purchase-display-data-items" th:text="${sweet.nombre}"></p>
+                <div class="vertical-line"></div>
+                <p class="purchase-display-data-items" th:text="${sweet.peso} + ' gr'"></p>
+                <div class="vertical-line"></div>
+                <p class="purchase-display-data-items" th:text="'$ ' + ${sweet.precio}"></p>
+            </div>
+
+        </div>
+
+
+    </div>
+</main>
+<footer class="purchase-amount">
+    <button class="purchase-amount-button" th:text="'$ ' + ${purchase.precio_total}"></button>
+</footer>
+
+</body>
+
+</html>

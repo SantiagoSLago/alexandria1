@@ -1,0 +1,131 @@
+body {
+    background-image: url("/img/AlexandriaLanding.jpg");
+    height: 100vh;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    overflow: hidden;
+}
+
+.button-init {
+    border-radius: 10px;
+    border: none;
+    background: rgba(218, 210, 170, 0.7);
+    color: #3A1E0A;
+    width: 150px;
+    height: 50px;
+    flex-shrink: 0;
+    font-size: 20px;
+    font-family: 'Meie Script', cursive;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    cursor:pointer;
+}
+
+.banner h1 {
+    color: #FFFAE2;
+    text-align: center;
+    font-size: 75px;
+    font-family: 'Meie Script', cursive;
+    font-style: normal;
+    font-weight: 100;
+    line-height: normal;
+    padding-bottom: 100px;
+    margin-top: 57px;
+
+}
+
+.logo {
+    display: flex;
+    justify-content: center;
+}
+
+.buttons {
+    width: 35%;
+    display: flex;
+    justify-content: space-around;
+    align-self: center;
+    box-sizing: border-box;
+    margin-bottom: 120px;
+
+
+}
+
+/*>>>>>>>>EFECTS<<<<<<<<<<*/
+
+.hvr-grow {
+
+      vertical-align: middle;
+      -webkit-transform: perspective(1px) translateZ(0);
+      transform: perspective(1px) translateZ(0);
+      box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+      -webkit-transition-duration: 0.3s;
+      transition-duration: 0.3s;
+      -webkit-transition-property: transform;
+      transition-property: transform;
+    }
+    .hvr-grow:hover, .hvr-grow:focus, .hvr-grow:active {
+      -webkit-transform: scale(1.1);
+      transform: scale(1.1);
+    }
+
+
+
+
+
+
+
+@media (min-width:320px) and (max-width:896px) {
+
+    body {
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+
+    }
+
+    .logo {
+        display: flex;
+        justify-content: center;
+    }
+
+    .logo img {
+        color: #3A1E0A;
+        width: 106.562px;
+        height: 69.961px;
+    }
+
+    .banner {
+        display: flex;
+        justify-content: center;
+        padding-bottom: 100px;
+    }
+
+    .buttons {
+        display: flex;
+        justify-content: space-around;
+        width: 100vw;
+        margin: 0%;
+    }
+
+
+
+
+
+
+
+
+
+
+}

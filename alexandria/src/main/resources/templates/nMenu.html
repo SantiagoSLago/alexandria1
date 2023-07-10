@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Meie+Script&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/nMenu.css}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <title>Menu</title>
+</head>
+
+<body>
+<header class="logo">
+    <img th:src="@{/img/logo.png}" alt="">
+</header>
+<main class="menu">
+    <div class="menu-display">
+        <p id="numero_mesa" value="4">4</p>
+        <h2 class="menu-title">Coffe</h2>
+        <hr class="menu-separator">
+        <div class="menu-card-container animate__animated animate__fadeInRight">
+            <div class="menu-card" th:each="coffee : ${coffees}">
+                <div class="menu-card-static">
+                    <img th:src="${coffee.img}" alt="img-coffee" class="menu-item-img">
+                    <div class="menu-card-item-info">
+                        <p class="menu-item" th:text="${coffee.nombre}"></p>
+                        <p class="menu-item-dimension" th:text="${coffee.medida} + ' ml'"></p>
+                        <p class="menu-item-price" th:text="'$ ' + ${coffee.precio}">$</p>
+                    </div>
+                </div>
+
+                <div class="menu-card-interaction">
+                    <i class="bi bi-plus-circle-fill icons-plus-minus hvr-grow" th:value="${coffee.id}"></i>
+                    <p class="menu-item-amount" name="coffee" th:value="${coffee.id}"></p>
+                    <i class="bi bi-dash-circle-fill icons-plus-minus hvr-grow" th:value="${coffee.id}"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="menu-display">
+        <h2 class="menu-title">Sweets</h2>
+        <hr class="menu-separator">
+        <div class="menu-card-container animate__animated animate__fadeInLeft">
+            <div class="menu-card" th:each="sweet : ${sweets}">
+                <div class="menu-card-static">
+                    <img th:src="${sweet.img}" alt="img-sweet" class="menu-item-img">
+                    <div class="menu-card-item-info">
+                        <p class="menu-item" th:text="${sweet.nombre}"></p>
+                        <p class="menu-item-dimension" th:text="${sweet.peso} + ' gr'"></p>
+                        <p class="menu-item-price" th:text="'$ ' + ${sweet.precio}">$</p>
+                    </div>
+                </div>
+
+                <div class="menu-card-interaction">
+                    <i class="bi bi-plus-circle-fill icons-plus-minus hvr-grow" th:value="${sweet.id}"></i>
+                    <p class="menu-item-amount" name="sweet" th:value="${sweet.id}"></p>
+                    <i class="bi bi-dash-circle-fill icons-plus-minus hvr-grow" th:value="${sweet.id}"></i>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</main>
+
+
+<footer class="buttons">
+    <button class="menu-button btn-purchase hvr-grow">Order</button>
+    <button class="menu-button btn-amount"></button>
+</footer>
+
+
+<script th:src="@{/js/nMenu.js}"></script>
+</body>
+
+</html>

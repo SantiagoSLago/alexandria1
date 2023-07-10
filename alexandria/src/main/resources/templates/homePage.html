@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" th:href="@{/css/homePage.css}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Meie+Script&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+  />
+  <title>Home</title>
+</head>
+
+<body>
+
+<header>
+  <img th:src="@{/img/logo.png}" alt="">
+  <h1 th:text="'Welcome ' + ${user.username}"></h1>
+</header>
+<main>
+  <section class="menu">
+    <div class="menu-option animate__animated animate__fadeInLeft">
+      <a th:href="@{/admin/sweets/listaSweets}">
+      <div class="menu-option-icon hvr-grow">
+        <i class="fa-solid fa-cheese "></i>
+      </div>
+      <h3>Sweets</h3>
+      </a>
+    </div>
+    <div class="menu-option animate__animated animate__fadeInUp">
+      <a th:href="@{/admin/cafes/listaCafes}">
+      <div class="menu-option-icon hvr-grow">
+        <i class="fa-solid fa-mug-hot"></i>
+
+      </div>
+      <h3>Coffee</h3>
+        </a>
+    </div>
+    <div class="menu-option animate__animated animate__fadeInRight">
+      <a th:href="@{/pedidos/admin/listar}">
+      <div class="menu-option-icon hvr-grow">
+        <i class="fa-regular fa-paper-plane"></i>
+
+      </div>
+      <h3>Orders</h3>
+      </a>
+    </div>
+
+
+
+
+
+  </section>
+
+
+</main>
+
+</body>
+
+</html>
