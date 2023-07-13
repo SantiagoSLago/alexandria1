@@ -13,8 +13,8 @@ INSERT INTO sweets(nombre,precio,peso,img,state) VALUES('OreoCake',350,235,'/img
 INSERT INTO sweets(nombre,precio,peso,img,state) VALUES('Crumble',400,235,'/img/sweets/OreoCake.jpg',0);
 
 
-INSERT INTO users (username,password) VALUES('Juan','juan123');
-INSERT INTO users (username,password) VALUES('potter','potter123');
+INSERT INTO users (username,password) VALUES('user','user');
+
 
 /* Populate tabla  autorities*/
 INSERT INTO autorities (name) VALUES('ROLE_ADMIN');
