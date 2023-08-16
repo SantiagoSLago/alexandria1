@@ -13,6 +13,7 @@ INSERT INTO sweets(nombre,precio,peso,img,state) VALUES('OreoCake',350,235,'/img
 INSERT INTO sweets(nombre,precio,peso,img,state) VALUES('Crumble',400,235,'/img/sweets/OreoCake.jpg',0);
 
 
+INSERT INTO users (username,password) VALUES('admin','admin');
 INSERT INTO users (username,password) VALUES('user','user');
 
 
@@ -23,9 +24,10 @@ INSERT INTO autorities (name) VALUES('READ');
 INSERT INTO autorities (name) VALUES('WRITE');
 
 /* Populate tabla  user_authorirty*/
-INSERT INTO user_authority (authority_id,user_id) VALUES (4,1);
 INSERT INTO user_authority (authority_id,user_id) VALUES (1,1);
+INSERT INTO user_authority (authority_id,user_id) VALUES (1,4);
 INSERT INTO user_authority (authority_id,user_id) VALUES (2,2);
+INSERT INTO user_authority (authority_id,user_id) VALUES (2,3);
 
 /* Populate tabla purchase*/
 INSERT INTO purchase(numero_mesa,precio_total,fecha) VALUES (4,320.85,'2023-07-03 19:10:50');

@@ -13,122 +13,130 @@ const formData = new FormData(form);
 const fileInput = document.querySelector("#file");
 
 
-addIcon.forEach(function(addIcon){
-addIcon.addEventListener("click",function(){
-addForm.classList.toggle("show")
-})
-})
-
-updateIcon.forEach(function(updateIcon){
-updateIcon.addEventListener("click",function(){
-updateForm.classList.toggle("show")
-
-
- const id_product=updateIcon.getAttribute('value');
-
-
-    const url = "/admin/cafes/"+id_product
-
-    const settings ={
-        method:"GET"
-    }
-
-    fetch(url,settings)
-    .then((response)=>{
-        return response.json()
+addIcon.forEach(function (addIcon) {
+    addIcon.addEventListener("click", function () {
+        addForm.classList.toggle("show")
     })
-    .then((responseData)=>{
-        autocompleteForm(responseData)
+})
+
+updateIcon.forEach(function (updateIcon) {
+    updateIcon.addEventListener("click", function () {
+        updateForm.classList.toggle("show")
+
+
+        const id_product = updateIcon.getAttribute('value');
+
+
+        const url = "/admin/cafes/" + id_product
+
+        const settings = {
+            method: "GET"
+        }
+
+        fetch(url, settings)
+            .then((response) => {
+                return response.json()
+            })
+            .then((responseData) => {
+                autocompleteForm(responseData)
+            })
+
+
     })
-
-
-})
 })
 
-deleteIcon.forEach(function(deleteIcon){
+deleteIcon.forEach(function (deleteIcon) {
 
 
-    deleteIcon.addEventListener("click", function(e) {
+    deleteIcon.addEventListener("click", function (e) {
         e.preventDefault()
-      const id_product = deleteIcon.getAttribute('value')
+        const id_product = deleteIcon.getAttribute('value')
         const url = "/pedidos/purchaseByCoffee/" + id_product;
 
         const settings = {
             method: "GET"
         }
 
-        fetch(url,settings)
-        .then((response)=>{
-            if(response.status==204){
+        fetch(url, settings)
+            .then((response) => {
+                if (response.status == 204) {
 
-                deleteProduct(id_product)
+                    deleteProduct(id_product)
 
-            }else if(response.ok){
+                } else if (response.ok) {
 
-               if(confirm(textoEliminacion)){
-                deleteProduct(id_product)
-               }
+                    if (confirm(textoEliminacion)) {
+                        deleteProduct(id_product)
+                    }
 
 
-            }
-            //return response.json()
-        })
-        .then((responseData)=>{
+                }
+                //return response.json()
+            })
+            .then((responseData) => {
 
-            window.location.reload();
-        })
+                window.location.reload();
+            })
 
 
     });
 
 
 
-    })
+})
 
-stateIcon.forEach(function(stateIcon){
-
-
-        stateIcon.addEventListener("click", function(e) {
-            e.preventDefault()
+stateIcon.forEach(function (stateIcon) {
 
 
-
-          const id_product = stateIcon.getAttribute('value')
+    stateIcon.addEventListener("click", function (e) {
+        e.preventDefault()
 
 
 
-            const url = "/admin/cafes/updateState/" + id_product;
+        const id_product = stateIcon.getAttribute('value')
 
-            const settings = {
-                method: "PUT"
-            }
 
-            fetch(url,settings)
-            .then(()=>{
-            window.location.reload()
 
+        const url = "/admin/cafes/updateState/" + id_product;
+
+        const settings = {
+            method: "PUT"
+        }
+
+        fetch(url, settings)
+            .then(response => {
+
+                if (response.status === 403) {
+                    window.alert("Unauthorized")
+                } else if(response.status === 200){
+                    window.alert("Succesful action");
+                }
+
+            })
+            .catch((error) => {
+                console.log("Error en la solicitud fetch: " + error);
             })
 
 
-        });
+    });
 
 
 
-        })
+})
 
 
 
-addButton.addEventListener("click", function(e) {
+addButton.addEventListener("click", function (e) {
 
-e.preventDefault()
-
-
+    e.preventDefault()
 
 
-formData.set('nombre',document.querySelector('#name').value)
-formData.set('medida',document.querySelector('#size').value)
-formData.set('precio',document.querySelector('#price').value)
-formData.set("file", fileInput.files[0]);
+
+
+    formData.set('nombre', document.querySelector('#name').value)
+    formData.set('medida', document.querySelector('#size').value)
+    formData.set('precio', document.querySelector('#price').value)
+    formData.set("file", fileInput.files[0]);
 
     const url = "/admin/cafes/crearCafe"
 
@@ -136,14 +144,21 @@ formData.set("file", fileInput.files[0]);
     fetch(url, {
         method: 'POST',
         body: formData
-      })
+    })
+        .then(response => {
+            if (response.status === 403) {
+                window.alert("Unauthorized")
+            } else if (response.status === 200) {
+                window.alert("Succesful action");
+            }
+        })
 
 
 
-  });
+});
 
-updateButton.addEventListener("click",function(e){
-e.preventDefault()
+updateButton.addEventListener("click", function (e) {
+    e.preventDefault()
 
 
     coffee_id = document.querySelector('.update_input_productId').value
@@ -156,28 +171,33 @@ e.preventDefault()
 
 
     data = {
-            nombre: name_input,
-            medida: size_input,
-            precio: price_input
-        }
+        nombre: name_input,
+        medida: size_input,
+        precio: price_input
+    }
 
-        settings = {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(data)
-        }
+    settings = {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+    }
 
 
-        fetch(url,settings)
-            .then((response)=>{
-                return response.json()
-            })
-            .then((responseData)=>{
-                console.log(responseData)
-                window.location.reload()
-            })
+    fetch(url, settings)
+        .then(response => {
+
+            if (response.status === 403) {
+                window.alert("Unauthorized")
+            } else {
+                window.alert("Succesful action");
+            }
+
+        })
+        .catch((error) => {
+            console.log("Error en la solicitud fetch: " + error);
+        })
 
 
 
@@ -188,7 +208,7 @@ e.preventDefault()
 
 
 
-function deleteProduct(id){
+function deleteProduct(id) {
 
     const url = "/admin/cafes/eliminarCafe/" + id;
 
@@ -196,18 +216,23 @@ function deleteProduct(id){
         method: "delete"
     }
 
-    fetch(url,settings)
-    .then((response) => {
-        return response.json()
-    })
-    .then((responseData) => {
-        console.log(responseData)
+    fetch(url, settings)
+        .then(response => {
 
-    })
+            if (response.status === 403) {
+                window.alert("Unauthorized")
+            } else {
+                window.alert("Succesful action");
+            }
+
+        })
+        .catch((error) => {
+            console.log("Error en la solicitud fetch: " + error);
+        })
 
 }
 
-function autocompleteForm(product){
+function autocompleteForm(product) {
 
     id_input = document.querySelector('.update_input_productId')
     name_input = document.querySelector('.update-input-name')

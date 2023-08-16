@@ -38,71 +38,76 @@ public class SweetService {
     private static final Logger LOGGER = Logger.getLogger(CafeService.class);
 
 
-
     @Transactional
-    public Sweets crearSweets(SweetRequestDTO sweetRequest,MultipartFile img) throws ValidacionException {
+    public Sweets crearSweets(SweetRequestDTO sweetRequest, MultipartFile img) throws ValidacionException {
 
         validacionData(sweetRequest);
         String imgName = uploadImageToFile(img);
         Sweets sweet = conversorDTO(sweetRequest);
         sweet.setState(true);
         sweet.setImg(imgName);
+        sweetRepo.save(sweet);
 
-        return sweetRepo.save(sweet);
+        LOGGER.info("Sweet created: " + sweet.getNombre() + "/Price: "+ sweet.getPeso() + "/Measure: " + sweet.getPeso());
+
+        return sweet;
     }
 
     @Transactional
-    public Sweets updateSweet(Integer id,SweetRequestDTO sweet) throws NoSuchObjectException {
+    public Sweets updateSweet(Integer id, SweetRequestDTO sweet) throws NoSuchObjectException {
         Sweets s = buscarPorId(id);
 
         s.setNombre(sweet.getNombre());
         s.setPeso(sweet.getPeso());
         s.setPrecio(sweet.getPrecio());
+        sweetRepo.save(s);
 
-        return sweetRepo.save(s);
+        LOGGER.info("Sweet updated: " + s.getNombre() + "/Price" + s.getPrecio() + "/Measure" + s.getPeso());
+
+        return s;
 
 
     }
+
     public List<Sweets> listarSweets() {
 
         List<Sweets> sw = sweetRepo.findAll();
-        for (Sweets s : sw) {
-            System.out.println(s.getId());
-            s.getNombre();
-            s.getPrecio();
-            System.out.println("---");
-        }
         return sw;
     }
 
-    public List<Sweets> allAvailableSweets(){
+    public List<Sweets> allAvailableSweets() {
         List<Sweets> sweets = sweetRepo.findAll();
         sweets.removeIf(s -> !s.isState());
         return sweets;
     }
 
-    public List<Sweets> allUnavailableSweets(){
+    public List<Sweets> allUnavailableSweets() {
         List<Sweets> sweets = sweetRepo.findAll();
         sweets.removeIf(s -> s.isState());
         return sweets;
     }
 
 
-
     @Transactional
-    public String eliminarSweet(Integer id) throws NoSuchObjectException {
-
+    public void eliminarSweet(Integer id) throws NoSuchObjectException {
         Sweets sweet = buscarPorId(id);
+        Integer sweetId = id;
         List<Purchase> purchases = pedidoRepo.purchaseBySweets(id);
+        List<Integer> purchasesId = new ArrayList<>();
 
-        for (Purchase p:purchases){
+
+
+        for (Purchase p : purchases) {
+            purchasesId.add(p.getId());
             p.getSweets().removeIf(s -> Objects.equals(s.getId(), id));
         }
 
+        for (Integer i : purchasesId) {
+            LOGGER.info("Order id deleted: " + i);
+        }
+
         sweetRepo.delete(sweet);
-
-
-        return "Sweet eliminado con exito";
+        LOGGER.info("Sweet id deleted: " + id);
     }
 
 
@@ -144,7 +149,7 @@ public class SweetService {
     }
 
 
-    public void validacionData(SweetRequestDTO dto) throws ValidacionException{
+    public void validacionData(SweetRequestDTO dto) throws ValidacionException {
 
         if (dto.getNombre().isBlank()) {
             throw new ValidacionException("El nombre del sweet no debe ser nulo ni debe estar vacio");
@@ -159,7 +164,7 @@ public class SweetService {
 
     }
 
-    public Sweets conversorDTO(SweetRequestDTO dto){
+    public Sweets conversorDTO(SweetRequestDTO dto) {
         Sweets sweet = new Sweets();
 
         sweet.setNombre(dto.getNombre());
@@ -170,17 +175,17 @@ public class SweetService {
 
     }
 
-    public String uploadImageToFile(MultipartFile img){
+    public String uploadImageToFile(MultipartFile img) {
 
         Path directorioRecursos = Paths.get("src//main//resources//static//img//sweets");
         String roothPath = directorioRecursos.toFile().getAbsolutePath();
 
-        if(!img.isEmpty()){
+        if (!img.isEmpty()) {
 
             try {
                 byte[] bytes = img.getBytes();
                 Path rutaCompleta = Paths.get(roothPath + "//" + img.getOriginalFilename());
-                Files.write(rutaCompleta,bytes);
+                Files.write(rutaCompleta, bytes);
                 LOGGER.info("Imagen guardada con exito" + rutaCompleta.toString());
 
 
@@ -189,9 +194,8 @@ public class SweetService {
             }
 
         }
-        return   "/img/sweets/"+ img.getOriginalFilename();
+        return "/img/sweets/" + img.getOriginalFilename();
     }
-
 
 
 }

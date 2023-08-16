@@ -34,22 +34,23 @@ public class CafeService {
     private RepositorioPedido pedidoRepo;
 
 
-
     @Transactional
-    public Coffee crearCafe(CafeRequestDTO cafeRequest ,MultipartFile img) throws ValidacionException {
+    public Coffee crearCafe(CafeRequestDTO cafeRequest, MultipartFile img) throws ValidacionException {
 
         validacionData(cafeRequest);
         String imgName = uploadImageToFile(img);
         Coffee coffee = conversorDto(cafeRequest);
         coffee.setState(true);
         coffee.setImg(imgName);
+        caferep.save(coffee);
+        LOGGER.info("Coffe created: " + coffee.getNombre() + "/Price: " + coffee.getPrecio() + "/Measure: " + coffee.getMedida());
 
-        return caferep.save(coffee);
+        return coffee;
     }
 
 
     public List<Coffee> listarCafes() {
-       return caferep.findAll();
+        return caferep.findAll();
     }
 
     public List<Coffee> allAvailableCoffee() {
@@ -58,11 +59,12 @@ public class CafeService {
         return coffees;
     }
 
-    public List<Coffee> allUnavailableCoffee(){
+    public List<Coffee> allUnavailableCoffee() {
         List<Coffee> coffees = caferep.findAll();
         coffees.removeIf(c -> c.isState());
         return coffees;
     }
+
     public List<Coffee> listaDeCafesPorId(List<Integer> id_cafes) throws NoSuchObjectException {
 
         List<Coffee> coffees = new ArrayList<>();
@@ -73,9 +75,6 @@ public class CafeService {
         return coffees;
 
     }
-
-
-
 
 
     public Coffee buscarCafePorId(Integer id) throws NoSuchObjectException {
@@ -98,27 +97,35 @@ public class CafeService {
         c.setNombre(coffee.getNombre());
         c.setMedida(coffee.getMedida());
         c.setPrecio(coffee.getPrecio());
+        caferep.save(c);
 
-        return caferep.save(c);
+        LOGGER.info("Coffee updated: " + c.getNombre() + "/Price" + c.getPrecio() + "/Measure" + c.getMedida());
+        return c;
 
 
     }
 
 
     @Transactional
-    public String eliminarCafe(Integer id) throws NoSuchObjectException {
+    public void eliminarCafe(Integer id) throws NoSuchObjectException {
         Coffee coffee = buscarCafePorId(id);
+        Integer coffeId = id;
         List<Purchase> purchases = pedidoRepo.purchaseByCoffee(id);
+        List<Integer> purchasesId = new ArrayList<>();
 
-        for (Purchase p:purchases){
+
+        for (Purchase p : purchases) {
+            purchasesId.add(p.getId());
             p.getCoffees().removeIf(c -> Objects.equals(c.getId(), id));
         }
 
+        for (Integer i : purchasesId) {
+            LOGGER.info("Order id deleted: " + i);
+        }
+
         caferep.delete(coffee);
+        LOGGER.info("Coffee id deleted: " + id);
 
-
-
-        return "Coffee eliminado con exito";
     }
 
     @Transactional
@@ -128,6 +135,7 @@ public class CafeService {
         coffee.setState(!coffee.isState());
 
         LOGGER.info("Status updated: " + coffee.getNombre() + "/" + coffee.isState());
+
 
     }
 
@@ -160,17 +168,17 @@ public class CafeService {
 
     }
 
-    public String uploadImageToFile(MultipartFile img){
+    public String uploadImageToFile(MultipartFile img) {
 
         Path directorioRecursos = Paths.get("src//main//resources//static//img//coffee");
         String roothPath = directorioRecursos.toFile().getAbsolutePath();
 
-        if(!img.isEmpty()){
+        if (!img.isEmpty()) {
 
             try {
                 byte[] bytes = img.getBytes();
                 Path rutaCompleta = Paths.get(roothPath + "//" + img.getOriginalFilename());
-                Files.write(rutaCompleta,bytes);
+                Files.write(rutaCompleta, bytes);
                 LOGGER.info("Imagen guardada con exito" + rutaCompleta.toString());
 
 
@@ -179,9 +187,8 @@ public class CafeService {
             }
 
         }
-        return   "src//main//resources//static//uploads//img//coffee"+ img.getOriginalFilename();
+        return "src//main//resources//static//uploads//img//coffee" + img.getOriginalFilename();
     }
-
 
 
 }

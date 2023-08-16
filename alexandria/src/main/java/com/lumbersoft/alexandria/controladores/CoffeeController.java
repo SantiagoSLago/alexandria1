@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -53,22 +54,27 @@ public class CoffeeController {
 
 
     @PutMapping("/updateCoffee/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     @ResponseBody
     public ResponseEntity<Coffee> updateCoffee(@PathVariable Integer id,@RequestBody CafeRequestDTO coffee) throws NoSuchObjectException {
-
         return new ResponseEntity<>(cafeService.updateCoffee(id,coffee),HttpStatus.OK);
-
-
     }
 
+
+
     @PutMapping("/updateState/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     @ResponseBody
-    private ResponseEntity updateCoffeeState(@PathVariable Integer id) throws NoSuchObjectException {
+    public ResponseEntity stateUpdate(@PathVariable Integer id) throws NoSuchObjectException{
         cafeService.setCoffeState(id);
         return new ResponseEntity(HttpStatus.OK);
     }
 
+
+
+
     @PostMapping(value = "/crearCafe", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PreAuthorize("hasRole('ADMIN')")
     @ResponseBody
     public ResponseEntity<Coffee> crearCafe(@ModelAttribute CafeRequestDTO cafe, @RequestParam("file") MultipartFile img) throws ValidacionException {
         return new ResponseEntity<>(cafeService.crearCafe(cafe, img), HttpStatus.OK);
@@ -76,9 +82,11 @@ public class CoffeeController {
 
 
     @DeleteMapping("/eliminarCafe/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     @ResponseBody
-    public ResponseEntity<String> eliminarCafe(@PathVariable Integer id) throws NoSuchObjectException {
-        return new ResponseEntity<>(cafeService.eliminarCafe(id), HttpStatus.OK);
+    public ResponseEntity eliminarCafe(@PathVariable Integer id) throws NoSuchObjectException {
+        cafeService.eliminarCafe(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping("/{id}")

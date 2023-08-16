@@ -6,6 +6,7 @@ import com.lumbersoft.alexandria.entidades.DTO.PedidoRequestDTO;
 import com.lumbersoft.alexandria.entidades.Menu.Coffee;
 import com.lumbersoft.alexandria.entidades.Menu.Sweets;
 import com.lumbersoft.alexandria.repositorios.RepositorioPedido;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,8 @@ import java.util.Optional;
 
 @Service
 public class PedidoService {
+
+    private static final Logger LOGGER = Logger.getLogger(CafeService.class);
 
     @Autowired
     RepositorioPedido pedidoRepo;
@@ -51,8 +54,12 @@ public class PedidoService {
         purchase.setNumero_mesa(pedidoRequestDTO.getNumero_mesa());
         purchase.setPrecio_total(pedidoRequestDTO.getMonto_orden());
         purchase.setFecha(LocalDateTime.now());
+        pedidoRepo.save(purchase);
 
-        return pedidoRepo.save(purchase);
+        LOGGER.info("Purchase created-id: " + purchase.getId());
+
+
+        return purchase;
 
 
     }
@@ -80,6 +87,7 @@ public class PedidoService {
 
     public String eliminarPedido(Integer id) throws NoSuchObjectException {
         pedidoRepo.delete(buscarPorId(id));
+        LOGGER.info("Pedido eliminado-id: " + id);
         return "Purchase eliminado con exito";
     }
 

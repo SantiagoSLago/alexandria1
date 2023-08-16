@@ -21,6 +21,9 @@
 <body>
 
 <header>
+  <form th:action="@{/logout}" method="post">
+    <button class="logout-btn">Log out</button>
+  </form>
   <img th:src="@{/img/logo.png}" alt="">
   <h1 th:text="'Welcome ' + ${user.username}"></h1>
 </header>

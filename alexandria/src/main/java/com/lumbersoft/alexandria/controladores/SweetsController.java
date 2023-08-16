@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -27,8 +28,12 @@ public class SweetsController {
 
 
     @PostMapping(value = "/crearSweet", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PreAuthorize("hasRole('ADMIN')")
     @ResponseBody
     public ResponseEntity<Sweets> crearSweet(@ModelAttribute SweetRequestDTO sweet, @RequestParam("file") MultipartFile img) throws ValidacionException, IOException {
+
+
+
         return new ResponseEntity<>(sweetService.crearSweets(sweet,img),HttpStatus.OK);
     }
 
@@ -40,6 +45,7 @@ public class SweetsController {
     }
 
     @PutMapping("/updateSweet/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     @ResponseBody
     public ResponseEntity<Sweets> updateSweet(@PathVariable Integer id,@RequestBody SweetRequestDTO sweet) throws NoSuchObjectException {
         return new ResponseEntity<>(sweetService.updateSweet(id,sweet),HttpStatus.OK);
@@ -58,8 +64,10 @@ public class SweetsController {
     }
 
     @DeleteMapping("eliminarSweet/{id}")
-    public ResponseEntity<String> eliminarSweet(@PathVariable Integer id) throws NoSuchObjectException {
-        return new ResponseEntity<>(sweetService.eliminarSweet(id), HttpStatus.OK);
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity eliminarSweet(@PathVariable Integer id) throws NoSuchObjectException {
+       sweetService.eliminarSweet(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
@@ -68,6 +76,7 @@ public class SweetsController {
     }
 
     @PutMapping("/updateState/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity updateSweetState(@PathVariable Integer id) throws NoSuchObjectException {
         sweetService.setSweetState(id);
         return new ResponseEntity(HttpStatus.OK);

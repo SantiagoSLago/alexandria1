@@ -33,3 +33,13 @@
 [2023-07-10 09:34:24] [INFO ] [CafeService:102] Status update: Cheesecake/true
 [2023-07-10 09:34:27] [INFO ] [CafeService:102] Status update: Bownie/false
 [2023-07-10 09:34:28] [INFO ] [CafeService:102] Status update: Bownie/true
+[2023-07-13 10:22:13] [INFO ] [CafeService:115] Status update: Cheesecake/false
+[2023-07-13 10:22:16] [INFO ] [CafeService:115] Status update: Cheesecake/true
+[2023-08-09 11:21:39] [INFO ] [CafeService:174] Imagen guardada con exitoC:\Users\Musimundo\OneDrive\Documentos\NetBeansProjects\alexandria\src\main\resources\static\img\coffee\bushido.jpg
+[2023-08-15 20:00:52] [INFO ] [CafeService:130] Status updated: Capuccino/false
+[2023-08-15 20:29:33] [INFO ] [CafeService:123] Order deleted: 1
+[2023-08-15 20:29:33] [INFO ] [CafeService:123] Order deleted: 4
+[2023-08-15 20:29:33] [INFO ] [CafeService:127] Coffee deleted: 1
+[2023-08-15 20:31:00] [INFO ] [CafeService:182] Imagen guardada con exitoC:\Users\Musimundo\OneDrive\Documentos\NetBeansProjects\alexandria\src\main\resources\static\img\coffee\Captura de pantalla (408).png
+[2023-08-15 20:31:00] [INFO ] [CafeService:46] Coffe created: Prueba/Price111.0/Measure111
+[2023-08-15 20:31:32] [INFO ] [CafeService:102] Coffee updated: Prueba modif/Price111.0/Measure2332
